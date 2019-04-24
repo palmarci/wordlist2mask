@@ -1,5 +1,8 @@
 import sys
 from collections import Counter
+import pprint
+
+#reload(sys)
 
 if (len(sys.argv) < 2):
 	print("\npython wordlist to hashcat mask converter and sorter\n")
@@ -11,7 +14,7 @@ with open(str(sys.argv[1])) as f:
     content = f.readlines()
 
 content = [x.strip() for x in content]
-masks = set()
+masks = list()
 
 for x in content:
 	#x = x.decode('utf-8', 'ignore')
@@ -27,14 +30,9 @@ for x in content:
 				word = word + "?d"
 			else:
 				word = word + "?s"
-		masks.add(word)
+		masks.append(word)
 	except Exception:
 		pass
 
 
-
-masks = sorted(masks, key=Counter(masks).get, reverse=True)
-masks = list(masks)
-
-for i in masks:
-	print(i)
+pprint.pprint(Counter(masks))
